@@ -34,7 +34,7 @@ class AdsSimulator(Device, metaclass=DeviceMeta):
         h.add_variable(PLCVariable("Main.long",bytes(8),ads_type=constants.ADST_INT64,symbol_type="INT"))
         h.add_variable(PLCVariable("Main.bool",bytes(1),ads_type=constants.ADST_BIT,symbol_type="INT"))
         h.add_variable(PLCVariable("Main.string",bytes(1024),ads_type=constants.ADST_STRING,symbol_type="STRING"))
-        self.simulator_server = AdsTestServer(handler=handler, logging=False, ip_address=self.host, port=self.port)
+        self.simulator_server = AdsTestServer(handler=h, logging=False, ip_address=self.host, port=self.port)
         self.simulator_server.start()
         print("test server started on " + self.address + ":" + str(self.port) + "...")
         self.simulator_server.join()
