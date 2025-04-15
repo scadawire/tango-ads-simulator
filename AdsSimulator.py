@@ -36,7 +36,7 @@ class AdsSimulator(Device, metaclass=DeviceMeta):
         h.add_variable(PLCVariable("Main.string",bytes(1024),ads_type=constants.ADST_STRING,symbol_type="STRING"))
         self.simulator_server = AdsTestServer(handler=h, logging=False, ip_address=self.host, port=self.port)
         self.simulator_server.start()
-        print("test server started on " + self.address + ":" + str(self.port) + "...")
+        print("test server started on " + self.host + ":" + str(self.port) + "...")
         self.simulator_server.join()
         self.set_state(DevState.ON)
 
