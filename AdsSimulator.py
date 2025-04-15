@@ -37,7 +37,7 @@ class AdsSimulator(Device, metaclass=DeviceMeta):
         self.simulator_server = AdsTestServer(handler=h, logging=False, ip_address=self.host, port=self.port)
         self.simulator_server.start()
         print("test server started on " + self.host + ":" + str(self.port) + "...")
-        self.simulator_server.join()
+        # self.simulator_server.join() # since thread, join is not needed?
         self.set_state(DevState.ON)
 
 if __name__ == "__main__":
