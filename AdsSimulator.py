@@ -25,6 +25,10 @@ class AdsSimulator(Device, metaclass=DeviceMeta):
     def time(self):
         return time.time()
 
+    def runServer(self):
+        self.simulator_server.start()
+        self.simulator_server.join()
+
     def init_device(self):
         self.set_state(DevState.INIT)
         self.get_device_properties(self.get_device_class())
@@ -35,9 +39,8 @@ class AdsSimulator(Device, metaclass=DeviceMeta):
         h.add_variable(PLCVariable("Main.bool",bytes(1),ads_type=constants.ADST_BIT,symbol_type="INT"))
         h.add_variable(PLCVariable("Main.string",bytes(1024),ads_type=constants.ADST_STRING,symbol_type="STRING"))
         self.simulator_server = AdsTestServer(handler=h, logging=False, ip_address=self.host, port=self.port)
-        self.simulator_server.start()
+        Thread(target=self.runServer, daemon=True).start()
         print("test server started on " + self.host + ":" + str(self.port) + "...")
-        # self.simulator_server.join() # since thread, join is not needed?
         self.set_state(DevState.ON)
 
 if __name__ == "__main__":
